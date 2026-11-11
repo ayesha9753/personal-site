@@ -85,7 +85,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;backdrop-filter:blur(16px);b
 .pill{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--fm);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.06);padding:.44rem .95rem;border-radius:99px}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}55%{box-shadow:0 0 0 7px rgba(52,211,153,0)}}
-.hero h1{font-family:var(--fd);font-size:clamp(2.9rem,6.8vw,4.8rem);line-height:1.02;font-weight:700;letter-spacing:-.015em;margin:1.4rem 0 .5rem}
+.hero-name{font-family:var(--fd);font-size:clamp(1.5rem,2.9vw,2.05rem);font-weight:700;letter-spacing:.015em;color:var(--txt);margin:1.5rem 0 0}
+.hero-name span{color:var(--cyan)}
+.hero h1{font-family:var(--fd);font-size:clamp(2.55rem,5.9vw,4.15rem);line-height:1.04;font-weight:700;letter-spacing:-.015em;margin:.55rem 0 .6rem}
 .hero .role{font-family:var(--fm);color:var(--cyan);font-size:clamp(.92rem,2vw,1.05rem);letter-spacing:.1em}
 .hero p.sub{color:var(--muted);max-width:50ch;margin:1.15rem 0 2rem;font-size:1.05rem}
 .hero-cta{display:flex;gap:.9rem;flex-wrap:wrap}
@@ -278,7 +280,8 @@ body.intro-lock{overflow:hidden}
   <div class="wrap hero-grid" style="position:relative;z-index:1">
     <div>
       <span class="pill"><i></i> Open to work — roles &amp; freelance</span>
-      <h1>Ayesha Imran<br><span class="grad">I deploy apps<br>to production.</span></h1>
+      <div class="hero-name">Ayesha Imran<span>.</span></div>
+      <h1><span class="grad">I deploy apps<br>to production.</span></h1>
       <div class="role">DEVOPS &amp; CLOUD ENGINEER — LAHORE · REMOTE WORLDWIDE</div>
       <p class="sub">CI/CD pipelines, Docker containers and Terraform infrastructure on AWS — built, tested and shipped with zero downtime. If your team still deploys by hand, I should be your next conversation.</p>
       <div class="hero-cta">
