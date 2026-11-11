@@ -484,13 +484,18 @@ body.intro-lock{overflow:hidden}
         <a class="c-item" href="https://www.fiverr.com/ayesha_devops" target="_blank" rel="noopener"><span>🧰</span><span><small>Fiverr — hire me</small><b>fiverr.com/ayesha_devops</b></span></a>
         <div class="c-item"><span>🕒</span><span><small>Local time — Lahore</small><b id="clock">—</b></span></div>
       </div>
-      <form class="form rv d1" id="contact-form">
+      <form class="form rv d1" id="contact-form" action="https://formsubmit.co/ayeshaimran9797@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New portfolio message">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://ayesha9753.github.io/personal-site/?sent=1#contact">
+        <input type="text" name="_honey" style="display:none">
         <div class="f-row">
-          <div><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Your name" required></div>
-          <div><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@email.com" required></div>
+          <div><label for="f-name">Name</label><input id="f-name" name="name" type="text" placeholder="Your name" required></div>
+          <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@email.com" required></div>
         </div>
-        <label for="f-subject">Subject</label><input id="f-subject" type="text" placeholder="Role · project · collaboration">
-        <label for="f-msg">Message</label><textarea id="f-msg" rows="5" placeholder="Tell me about the role or project…" required></textarea>
+        <label for="f-subject">Subject</label><input id="f-subject" name="subject" type="text" placeholder="Role · project · collaboration">
+        <label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="5" placeholder="Tell me about the role or project…" required></textarea>
         <button class="btn btn-pri" type="submit">Send message</button>
         <p id="form-status" style="margin-top:.9rem;font-size:.9rem;color:var(--muted)" role="status"></p>
       </form>
@@ -653,80 +658,11 @@ tinput.addEventListener('keydown', function(ev){
 });
 document.querySelector('.term').addEventListener('click', function(){ tinput.focus(); });
 
-/* ---------- CONTACT FORM (FormSubmit AJAX → Gmail inbox) ---------- */
-document.getElementById('contact-form').addEventListener('submit', function(ev){
-  ev.preventDefault();
-  var form = ev.target, btn = form.querySelector('button[type="submit"]'), status = document.getElementById('form-status');
-  var payload = {
-    name: document.getElementById('f-name').value,
-    email: document.getElementById('f-email').value,
-    subject: document.getElementById('f-subject').value || 'Portfolio enquiry',
-    message: document.getElementById('f-msg').value,
-    _subject: 'New portfolio message — ' + (document.getElementById('f-subject').value || 'Portfolio enquiry'),
-    _template: 'table',
-    _captcha: 'false',
-    _honey: ''
-  };
-  btn.disabled = true; btn.textContent = 'Sending…'; status.textContent = '';
-  fetch('https://formsubmit.co/ajax/ayeshaimran9797@gmail.com', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    body: JSON.stringify(payload)
-  }).then(function(r){ return r.json(); }).then(function(d){
-    if(d && (d.success === 'true' || d.success === true)){
-      status.style.color = 'var(--green)';
-      status.textContent = 'Message sent — thank you. I usually reply within a day.';
-      form.reset();
-    } else { throw new Error('send failed'); }
-  }).catch(function(){
-    status.style.color = '#ff8a80';
-    status.textContent = 'Could not send just now — please email me directly at ayeshaimran9797@gmail.com.';
-  }).finally(function(){ btn.disabled = false; btn.textContent = 'Send message'; });
-});
-
-/* ---------- SCROLL PROGRESS ---------- */
-var prog = document.getElementById('progress');
-window.addEventListener('scroll', function(){
-  var h = document.documentElement;
-  var max = h.scrollHeight - h.clientHeight;
-  if(prog && max > 0) prog.style.width = (h.scrollTop / max * 100) + '%';
-}, {passive:true});
-
-/* ---------- HERO PARTICLES ---------- */
+/* ---------- CONTACT FORM (FormSubmit classic POST → Gmail inbox) ---------- */
 (function(){
-  var cv = document.getElementById('particles');
-  if(!cv) return;
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var ctx = cv.getContext('2d'), W = 0, H = 0, pts = [], running = true, raf = null;
-  var COLORS = ['103,232,249','167,139,250','52,211,153'];
-  function resize(){
-    var r = cv.parentElement.getBoundingClientRect();
-    W = cv.width = Math.floor(r.width); H = cv.height = Math.floor(r.height);
-    var n = Math.min(85, Math.floor(W * H / 16000));
-    pts = [];
-    for(var i = 0; i < n; i++) pts.push({x: Math.random()*W, y: Math.random()*H, vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35, c: COLORS[i % 3]});
-  }
-  function frame(){
-    if(!running){ raf = null; return; }
-    ctx.clearRect(0, 0, W, H);
-    var i, j, a, b, dx, dy, d;
-    for(i = 0; i < pts.length; i++){
-      a = pts[i]; a.x += a.vx; a.y += a.vy;
-      if(a.x < 0 || a.x > W) a.vx *= -1; if(a.y < 0 || a.y > H) a.vy *= -1;
-      ctx.beginPath(); ctx.arc(a.x, a.y, 1.6, 0, 6.2832); ctx.fillStyle = 'rgba(' + a.c + ',.75)'; ctx.fill();
-      for(j = i + 1; j < pts.length; j++){
-        b = pts[j]; dx = a.x - b.x; dy = a.y - b.y; d = dx*dx + dy*dy;
-        if(d < 12100){ ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.strokeStyle = 'rgba(' + a.c + ',' + (0.13 * (1 - d/12100)).toFixed(3) + ')'; ctx.lineWidth = 1; ctx.stroke(); }
-      }
-    }
-    raf = requestAnimationFrame(frame);
-  }
-  resize(); frame();
-  window.addEventListener('resize', resize);
-  new IntersectionObserver(function(en){ en.forEach(function(x){
-    if(x.isIntersecting && !raf){ running = true; frame(); }
-    if(!x.isIntersecting){ running = false; }
-  }); }).observe(cv);
+  if(location.search.indexOf('sent=1') === -1) return;
+  var status = document.getElementById('form-status');
+  if(status){ status.style.color = 'var(--green)'; status.textContent = 'Message sent — thank you. I usually reply within a day.'; }
 })();
 
 /* ---------- INTRO ---------- */
